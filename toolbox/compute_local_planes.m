@@ -12,10 +12,18 @@
 %   imgNormals - HxWx3 matrix of surface normals at each pixel.
 %   imgConfs - HxW image of confidences.
 function [imgPlanes, imgNormals, imgConfs, N] = ...
-    compute_local_planes(X, Y, Z, sz)
-
+    compute_local_planes(X, Y, Z, sz, trys)
+    
+  if nargin < 5
+      trys = false;
+  end
   blockWidths = [1 3 6 9];
   relDepthThresh = 0.05;
+  if trys
+    blockWidths = [1 5 10 15];
+    relDepthThresh = 0.02;
+  end
+  
 
 %  [~, sz] = get_projection_mask();
   H = sz(1);

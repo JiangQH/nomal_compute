@@ -12,7 +12,7 @@ if nargin<2
   calib_dir = 'H:\Jiang\Dataset\kitti_raw\calib\2011_09_26';
 end
 cam       = 2; % 0-based index
-frame     = 150; % 0-based index
+frame     = 134; % 0-based index
 % load calibration
 calib = loadCalibrationCamToCam(fullfile(calib_dir,'calib_cam_to_cam.txt'));
 Tr_velo_to_cam = loadCalibrationRigid(fullfile(calib_dir,'calib_velo_to_cam.txt'));

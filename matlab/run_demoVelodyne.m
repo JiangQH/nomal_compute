@@ -13,13 +13,13 @@ disp('======= KITTI DevKit Demo =======');
 
 % options (modify this to select your sequence)
 if nargin<1
-  base_dir  = 'E:\Jiang\Dataset\kitti_raw\data\2011_09_26\2011_09_26_drive_0005_sync';
+  base_dir  = '/media/qinhong/Carrie/Jiang/Dataset/kitti_raw/data/2011_09_26/2011_09_26_drive_0005_sync';
 end
 if nargin<2
-  calib_dir = 'E:\Jiang\Dataset\kitti_raw\calib\2011_09_26';
+  calib_dir = '/media/qinhong/Carrie/Jiang/Dataset/kitti_raw/calib/2011_09_26';
 end
 cam       = 2; % 0-based index
-frame     = 0; % 0-based index
+frame     = 134; % 0-based index
 
 % load calibration
 calib = loadCalibrationCamToCam(fullfile(calib_dir,'calib_cam_to_cam.txt'));
@@ -38,7 +38,7 @@ imshow(img); hold on;
 % load velodyne points
 fid = fopen(sprintf('%s/velodyne_points/data/%010d.bin',base_dir,frame),'rb');
 velo = fread(fid,[4 inf],'single')';
-%velo = velo(1:5:end,:); % remove every 5th point for display speed
+%velo = velo(1:3:end,:);
 fclose(fid);
 
 % remove all points behind image plane (approximation
@@ -49,8 +49,10 @@ velo(idx,:) = [];
 velo_img = project(velo(:,1:3),P_velo_to_img);
 
 % plot points
+velo_index = round(velo_img);
 cols = jet;
 for i=1:size(velo_img,1)
   col_idx = round(64*5/velo(i,1));
-  plot(velo_img(i,1),velo_img(i,2),'o','LineWidth',4,'MarkerSize',1,'Color',cols(col_idx,:));
+  plot(velo_index(i,1),velo_index(i,2),'o','LineWidth',1,'MarkerSize',1,'Color',cols(col_idx,:));
 end
+disp('done');

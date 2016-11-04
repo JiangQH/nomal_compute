@@ -1,18 +1,20 @@
-function filled = fillhole(M)
+function filled = fillhole(M, ratio)
     %fill the hole with 5 radius
     filled = M;
     [m, n,~] = size(M);
+    
     for row = 1 : m
         for col = 1 : n
             sample = M(row,col, :);
-            if sample(:) == [0;0;0]
+            value = sample(1,1,2:4);
+            if value(:) == [0;0;0]
                 continue;
             end
             % get the left, right, top, bottom corner
-            left = col - 3;
-            right = col + 3;
-            top = row - 3;
-            bottom = row + 3;
+            left = col - ratio;
+            right = col + ratio;
+            top = row - ratio;
+            bottom = row + ratio;
             while(left <= 0)
                 left = left + 1;
             end
@@ -30,7 +32,7 @@ function filled = fillhole(M)
                 for scol = left : right
                     % what if it has a value?
                     % right now ignore it
-                        filled(srow, scol, :) = sample;
+                    filled(srow, scol, :) = sample;
                 end
             end
             

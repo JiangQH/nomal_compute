@@ -20,8 +20,8 @@ function [imgPlanes, imgNormals, imgConfs, N] = ...
   blockWidths = [1 3 6 9];
   relDepthThresh = 0.05;
   if trys
-    blockWidths = [1 5 10 15];
-    relDepthThresh = 0.02;
+    blockWidths = [1 2 3 4];
+    relDepthThresh = 0.05;
   end
   
 
